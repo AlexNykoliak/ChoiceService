@@ -7,6 +7,11 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = ['user', 'department']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['user'] = instance.user.username
+        return ret
+
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +23,4 @@ class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = ['user', 'menu', 'vote', 'publication_date']
+
