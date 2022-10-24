@@ -20,3 +20,9 @@ class Restaurant(models.Model):
     def __str__(self):
         return "{}, {}".format(self.name, self.publication_date)
 
+
+class Vote(models.Model):
+    user = models.ForeignKey(User, related_name='user_like', on_delete=models.CASCADE)
+    menu = models.ForeignKey(Restaurant, related_name='menu_like', on_delete=models.CASCADE)
+    vote = models.SmallIntegerField(default=0)
+    publication_date = models.DateField(format('%Y-%m-%d'), auto_now_add=True)
