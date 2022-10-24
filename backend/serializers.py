@@ -20,7 +20,11 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
 
 class VoteSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Vote
         fields = ['user', 'menu', 'vote', 'publication_date']
+
+
+
 

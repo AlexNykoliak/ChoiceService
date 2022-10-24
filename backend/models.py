@@ -13,7 +13,7 @@ class Employee(models.Model):
 
 
 class Restaurant(models.Model):
-    name = models. CharField(max_length=25, verbose_name='restaurant_name', help_text='write the choice the name')
+    name = models.CharField(max_length=25, verbose_name='restaurant_name', help_text='write the choice the name')
     menu = models.ImageField(upload_to='static/menu')
     publication_date = models.DateField(format('%Y-%m-%d'), auto_now_add=True)
 
@@ -26,3 +26,4 @@ class Vote(models.Model):
     menu = models.ForeignKey(Restaurant, related_name='menu_like', on_delete=models.CASCADE)
     vote = models.SmallIntegerField(default=0)
     publication_date = models.DateField(format('%Y-%m-%d'), auto_now_add=True)
+

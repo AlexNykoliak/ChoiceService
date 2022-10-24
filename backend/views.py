@@ -39,19 +39,20 @@ class ResultsView(generics.ListAPIView):
     serializer_class = VoteSerializer
 
     def get(self, request, *args, **kwargs):
-        vote_count = Vote.objects.filter(publication_date=datetime.date.today())
-        restaurant = Restaurant.objects.filter().only('name')
-        return HttpResponse(restaurant)
+        vote_count = Vote.objects.filter(publication_date=datetime.date.today()).values_list(
+            'user__username', 'menu__name', 'vote', 'publication_date')
+
+        return HttpResponse(vote_count)
 
 
 
-"""
 
-        if len(vote_count) > 0:
-            mimetype = 'application/json'
-            return HttpResponse(restaurant)
-            
-            return HttpResponse(json.dumps({str(restaurant[3]): len(vote_count[3])}), mimetype)
-        else:
-            return HttpResponse(json.dumps({'There were no votes': []}))
-"""
+
+
+
+
+ #   ('Restaurant 1',)('Restaurant 2',)('Restaurant 4',)('Restaurant 5',)('Restaurant 6',)
+#   (1,)(1,)(1,)(1,)(1,)(1,)(1,)(1,)(1,)(1,)(2,)(1,)
+        # mimetype = 'application/json'
+        #return HttpResponse(json.dumps({'Restaurants': str(restaurant)}), mimetype)
+
