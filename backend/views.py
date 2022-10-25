@@ -35,24 +35,21 @@ class RestaurantVoteView(generics.CreateAPIView):
     serializer_class = VoteSerializer
 
 
+class MenuView(generics.ListAPIView):
+    serializer_class = VoteSerializer
+
+    def get(self, request, *args, **kwargs):
+        menu = Restaurant.objects.filter().values_list('name', 'menu')
+        mimetype = 'application/json'
+        return HttpResponse(json.dumps({'menu': str(menu)}), mimetype)
+#   publication_date=datetime.date.today() (add this line later in filter)
+
+
 class ResultsView(generics.ListAPIView):
     serializer_class = VoteSerializer
 
     def get(self, request, *args, **kwargs):
-        vote_count = Vote.objects.filter(publication_date=datetime.date.today()).values_list(
-            'user__username', 'menu__name', 'vote', 'publication_date')
-
-        return HttpResponse(vote_count)
-
-
-
-
-
-
-
-
- #   ('Restaurant 1',)('Restaurant 2',)('Restaurant 4',)('Restaurant 5',)('Restaurant 6',)
-#   (1,)(1,)(1,)(1,)(1,)(1,)(1,)(1,)(1,)(1,)(2,)(1,)
-        # mimetype = 'application/json'
-        #return HttpResponse(json.dumps({'Restaurants': str(restaurant)}), mimetype)
-
+        vote_count = Vote.objects.filter().values_list('menu__name', 'vote')
+        mimetype = 'application/json'
+        return HttpResponse(json.dumps({'Results': str(vote_count)}), mimetype)
+#   publication_date=datetime.date.today() (add this line later in filter)
